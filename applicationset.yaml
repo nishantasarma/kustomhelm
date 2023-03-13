@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: rookceph
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - app: op
+        url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: '{{app}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/nishantasarma/kustomhelm.git
+        targetRevision: HEAD
+        path: '{{app}}'
+      destination:
+        server: '{{url}}'
+        namespace: rook-ceph

@@ -30,13 +30,17 @@ resources:
     memory: 128Mi
 
 # -- Kubernetes [`nodeSelector`](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector) to add to the Deployment.
-nodeSelector: {}
+nodeSelector:
+  storage-enabled: "true"
 # Constraint rook-ceph-operator Deployment to nodes with label `disktype: ssd`.
 # For more info, see https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
 #  disktype: ssd
 
 # -- List of Kubernetes [`tolerations`](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) to add to the Deployment.
-tolerations: []
+tolerations:
+  - key: storage-enabled
+    operator: Exists
+    effect: NoSchedule
 
 # -- Delay to use for the `node.kubernetes.io/unreachable` pod failure toleration to override
 # the Kubernetes default of 5 minutes
@@ -89,10 +93,10 @@ csi:
   enableCSIEncryption: false
 
   # -- PriorityClassName to be set on csi driver plugin pods
-  # pluginPriorityClassName: system-node-critical
+  pluginPriorityClassName:
 
   # -- PriorityClassName to be set on csi driver provisioner pods
-  # provisionerPriorityClassName: system-cluster-critical
+  provisionerPriorityClassName:
 
   # -- Policy for modifying a volume's ownership or permissions when the RBD PVC is being mounted.
   # supported values are documented at https://kubernetes-csi.github.io/docs/support-fsgroup.html
@@ -404,12 +408,12 @@ csi:
 
   # -- Array of tolerations in YAML format which will be added to CSI provisioner deployment
   provisionerTolerations:
-  #    - key: key
-  #      operator: Exists
-  #      effect: NoSchedule
+     - key: storage-enabled
+       operator: Exists
+       effect: NoSchedule
 
   # -- The node labels for affinity of the CSI provisioner deployment [^1]
-  provisionerNodeAffinity: #key1=value1,value2; key2=value3
+  provisionerNodeAffinity: storage-enabled=true #key1=value1,value2; key2=value3
   # Set pluginTolerations and pluginNodeAffinity for plugin daemonset pods.
   # The CSI plugins need to be started on all the nodes where the clients need to mount the storage.
 
@@ -420,7 +424,7 @@ csi:
   #      effect: NoSchedule
 
   # -- The node labels for affinity of the CephCSI RBD plugin DaemonSet [^1]
-  pluginNodeAffinity: # key1=value1,value2; key2=value3
+  pluginNodeAffinity: storage-enabled=false # key1=value1,value2; key2=value3
 
   # -- Enable Ceph CSI Liveness sidecar deployment
   enableLiveness: false
@@ -547,8 +551,10 @@ useOperatorHostNetwork:
 discover:
   # -- Toleration for the discover pods.
   # Options: `NoSchedule`, `PreferNoSchedule` or `NoExecute`
-  toleration:
-  # -- The specific key of the taint to tolerate
+  tolerations:
+    - key: storage-enabled
+      operator: Exists
+      effect: NoSchedule
   tolerationKey:
   # -- Array of tolerations in YAML format which will be added to discover deployment
   tolerations:
@@ -556,7 +562,8 @@ discover:
   #     operator: Exists
   #     effect: NoSchedule
   # -- The node labels for affinity of `discover-agent` [^1]
-  nodeAffinity: # key1=value1,value2; key2=value3
+  nodeAffinity: storage-enabled=true # key1=value1,value2; key2=value3
+  
   # -- Labels to add to the discover pods
   podLabels: # "key1=value1,key2=value2"
   # -- Add resources to discover daemon pods
