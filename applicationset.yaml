@@ -9,6 +9,8 @@ spec:
       elements:
       - app: op
         url: https://kubernetes.default.svc
+      - app: cephcluster
+        url: https://kubernetes.default.svc
   template:
     metadata:
       name: '{{app}}'
@@ -21,3 +23,7 @@ spec:
       destination:
         server: '{{url}}'
         namespace: rook-ceph
+      syncPolicy:
+        syncOptions: 
+        - ServerSideApply=true
+      

@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: rook-ceph
+# make sure namespace exists
+
+helmCharts:
+- name: rook-ceph-cluster
+  releaseName: rook-ceph-cluster
+  repo: "https://charts.rook.io/release/"
+  version: 1.11.1
+  includeCRDs: true
+  valuesMerge: override
+  valuesFile: resources/cluster-values.yaml
