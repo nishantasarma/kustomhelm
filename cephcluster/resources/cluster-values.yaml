@@ -28,7 +28,7 @@ toolbox:
   image: #quay.io/ceph/ceph:v17.2.3
   # -- Toolbox tolerations
   tolerations:
-  - key: storage-node
+  - key: storage-enabled
     operator: Exists
     effect: NoSchedule
   # -- Toolbox affinity
@@ -37,7 +37,7 @@ toolbox:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: storage-node
+          - key: storage-enabled
             operator: In
             values:
             - "true"
