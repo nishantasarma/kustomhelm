@@ -304,7 +304,7 @@ ingress:
   #   #     proxy_ssl_verify off;
     host:
       name: dashboard.example.com
-  #     path: "/ceph-dashboard(/|$)(.*)"
+      path: "/ceph-dashboard(/|$)(.*)"
     # tls:
     # - hosts:
     #     - dashboard.example.com
