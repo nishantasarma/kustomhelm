@@ -341,7 +341,7 @@ cephBlockPools:
 # #              values:
 # #                - storage-node
 #       # see https://github.com/rook/rook/blob/master/Documentation/ceph-block.md#provision-storage for available configuration
-#       parameters:
+      parameters:
 #         # (optional) mapOptions is a comma-separated list of map options.
 #         # For krbd options refer
 #         # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
