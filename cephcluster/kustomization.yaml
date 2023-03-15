@@ -11,5 +11,6 @@ helmCharts:
   repo: "https://charts.rook.io/release/"
   version: 1.11.1
   includeCRDs: true
+  namespace: rook-ceph
   valuesMerge: override
   valuesFile: resources/cluster-values.yaml
