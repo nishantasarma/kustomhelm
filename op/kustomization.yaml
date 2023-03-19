@@ -10,6 +10,7 @@ resources:
 helmCharts:
 - name: rook-ceph
   releaseName: rook-ceph
+  namespace: rook-ceph
   repo: "https://charts.rook.io/release/"
   version: 1.11.1
   includeCRDs: true

@@ -31,14 +31,14 @@ resources:
 
 # -- Kubernetes [`nodeSelector`](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector) to add to the Deployment.
 nodeSelector:
-  storage-enabled: "true"
+  storage-node: "true"
 # Constraint rook-ceph-operator Deployment to nodes with label `disktype: ssd`.
 # For more info, see https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
 #  disktype: ssd
 
 # -- List of Kubernetes [`tolerations`](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) to add to the Deployment.
 tolerations:
-  - key: storage-enabled
+  - key: storage-node
     operator: Exists
     effect: NoSchedule
 
@@ -408,12 +408,12 @@ csi:
 
   # -- Array of tolerations in YAML format which will be added to CSI provisioner deployment
   provisionerTolerations:
-     - key: storage-enabled
+     - key: storage-node
        operator: Exists
        effect: NoSchedule
 
   # -- The node labels for affinity of the CSI provisioner deployment [^1]
-  provisionerNodeAffinity: storage-enabled=true #key1=value1,value2; key2=value3
+  provisionerNodeAffinity: storage-node=true #key1=value1,value2; key2=value3
   # Set pluginTolerations and pluginNodeAffinity for plugin daemonset pods.
   # The CSI plugins need to be started on all the nodes where the clients need to mount the storage.
 
@@ -424,7 +424,7 @@ csi:
   #      effect: NoSchedule
 
   # -- The node labels for affinity of the CephCSI RBD plugin DaemonSet [^1]
-  pluginNodeAffinity: storage-enabled=false # key1=value1,value2; key2=value3
+  pluginNodeAffinity: storage-node=false # key1=value1,value2; key2=value3
 
   # -- Enable Ceph CSI Liveness sidecar deployment
   enableLiveness: false
@@ -552,7 +552,7 @@ discover:
   # -- Toleration for the discover pods.
   # Options: `NoSchedule`, `PreferNoSchedule` or `NoExecute`
   tolerations:
-    - key: storage-enabled
+    - key: storage-node
       operator: Exists
       effect: NoSchedule
   tolerationKey:
@@ -562,7 +562,7 @@ discover:
   #     operator: Exists
   #     effect: NoSchedule
   # -- The node labels for affinity of `discover-agent` [^1]
-  nodeAffinity: storage-enabled=true # key1=value1,value2; key2=value3
+  nodeAffinity: storage-node=true # key1=value1,value2; key2=value3
   
   # -- Labels to add to the discover pods
   podLabels: # "key1=value1,key2=value2"

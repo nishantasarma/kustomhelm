@@ -27,7 +27,7 @@ toolbox:
   image: #quay.io/ceph/ceph:v17.2.3
   # -- Toolbox tolerations
   tolerations:
-  - key: storage-enabled
+  - key: storage-node
     operator: Exists
     effect: NoSchedule
   # -- Toolbox affinity
@@ -36,7 +36,7 @@ toolbox:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: storage-enabled
+          - key: storage-node
             operator: In
             values:
             - "true"
@@ -89,12 +89,12 @@ cephClusterSpec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: storage-enabled
+            - key: storage-node
               operator: In
               values:
               - "true"
       tolerations:
-      - key: storage-enabled
+      - key: storage-node
         operator: Exists
         effect: NoSchedule
 
@@ -158,12 +158,12 @@ cephClusterSpec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
               - matchExpressions:
-                - key: storage-enabled
+                - key: storage-node
                   operator: In
                   values:
                   - "true"
           tolerations:
-          - key: storage-enabled
+          - key: storage-node
             operator: Exists
             effect: NoSchedule
 
@@ -179,7 +179,7 @@ cephClusterSpec:
                       - rook-ceph-osd
         preparePlacement:
           tolerations:
-          - key: storage-enabled
+          - key: storage-node
             operator: Exists
             effect: NoSchedule
           podAntiAffinity:
@@ -201,7 +201,7 @@ cephClusterSpec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
               - matchExpressions:
-                - key: storage-enabled
+                - key: storage-node
                   operator: In
                   values:
                   - "true"  
@@ -397,12 +397,12 @@ cephFileSystems:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
               - matchExpressions:
-                - key: storage-enabled
+                - key: storage-node
                   operator: In
                   values:
                   - "true"
           tolerations:
-          - key: storage-enabled
+          - key: storage-node
             operator: Exists
           resources:
             limits:
@@ -488,12 +488,12 @@ cephObjectStores:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
               - matchExpressions:
-                - key: storage-enabled
+                - key: storage-node
                   operator: In
                   values:
                   - "true"
           tolerations:
-          - key: storage-enabled
+          - key: storage-node
             operator: Exists
         
 #         # securePort: 443
