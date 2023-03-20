@@ -2969,7 +2969,7 @@ prometheus:
     ##
      volumeClaimTemplate:
        spec:
-         storageClassName: ceph-block
+         storageClassName: ceph-filesystem
          accessModes: ["ReadWriteOnce"]
          resources:
            requests:
