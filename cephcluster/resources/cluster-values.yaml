@@ -436,27 +436,33 @@ cephFileSystems:
 
 # # -- Settings for the filesystem snapshot class
 # # @default -- See [CephFS Snapshots](../Storage-Configuration/Ceph-CSI/ceph-csi-snapshot.md#cephfs-snapshots)
-# cephFileSystemVolumeSnapshotClass:
-#   enabled: false
-#   name: ceph-filesystem
-#   isDefault: true
-#   deletionPolicy: Delete
-#   annotations: {}
-#   labels: {}
-#   # see https://rook.io/docs/rook/v1.10/Storage-Configuration/Ceph-CSI/ceph-csi-snapshot/#cephfs-snapshots for available configuration
-#   parameters: {}
+cephFileSystemVolumeSnapshotClass:
+  enabled: true
+  name: ceph-filesystem
+  isDefault: true
+  deletionPolicy: Delete
+  annotations: {}
+  labels: {}
+  # see https://rook.io/docs/rook/v1.10/Storage-Configuration/Ceph-CSI/ceph-csi-snapshot/#cephfs-snapshots for available configuration
+  parameters: 
+    clusterID: rook-ceph # namespace:cluster
+    csi.storage.k8s.io/snapshotter-secret-name: rook-csi-cephfs-provisioner
+    csi.storage.k8s.io/snapshotter-secret-namespace: rook-ceph # namespace:cluster
 
-# # -- Settings for the block pool snapshot class
-# # @default -- See [RBD Snapshots](../Storage-Configuration/Ceph-CSI/ceph-csi-snapshot.md#rbd-snapshots)
-# cephBlockPoolsVolumeSnapshotClass:
-#   enabled: false
-#   name: ceph-block
-#   isDefault: false
-#   deletionPolicy: Delete
-#   annotations: {}
-#   labels: {}
-#   # see https://rook.io/docs/rook/v1.10/Storage-Configuration/Ceph-CSI/ceph-csi-snapshot/#rbd-snapshots for available configuration
-#   parameters: {}
+# -- Settings for the block pool snapshot class
+# @default -- See [RBD Snapshots](../Storage-Configuration/Ceph-CSI/ceph-csi-snapshot.md#rbd-snapshots)
+cephBlockPoolsVolumeSnapshotClass:
+  enabled: true
+  name: ceph-block
+  isDefault: false
+  deletionPolicy: Delete
+  annotations: {}
+  labels: {}
+  # see https://rook.io/docs/rook/v1.10/Storage-Configuration/Ceph-CSI/ceph-csi-snapshot/#rbd-snapshots for available configuration
+  parameters: 
+    clusterID: rook-ceph # namespace:cluster
+    csi.storage.k8s.io/snapshotter-secret-name: rook-csi-rbd-provisioner
+    csi.storage.k8s.io/snapshotter-secret-namespace: rook-ceph # namespace:cluster
 
 # -- A list of CephObjectStore configurations to deploy
 # @default -- See [below](#ceph-object-stores)
