@@ -438,7 +438,7 @@ cephFileSystems:
 # # @default -- See [CephFS Snapshots](../Storage-Configuration/Ceph-CSI/ceph-csi-snapshot.md#cephfs-snapshots)
 cephFileSystemVolumeSnapshotClass:
   enabled: true
-  name: ceph-filesystem
+  name: ceph-filesystem-snapshotclass
   isDefault: true
   deletionPolicy: Delete
   annotations: {}
@@ -450,7 +450,7 @@ cephFileSystemVolumeSnapshotClass:
 # @default -- See [RBD Snapshots](../Storage-Configuration/Ceph-CSI/ceph-csi-snapshot.md#rbd-snapshots)
 cephBlockPoolsVolumeSnapshotClass:
   enabled: true
-  name: ceph-block
+  name: ceph-block-snapshotclass
   isDefault: false
   deletionPolicy: Delete
   annotations: {}
