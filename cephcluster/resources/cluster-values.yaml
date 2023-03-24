@@ -615,7 +615,7 @@ cephFileSystems:
         - failureDomain: host
           replicated:
             size: 3
-          name: data0
+          name: data2
           deviceClass: test2
       metadataServer:
         activeCount: 1
